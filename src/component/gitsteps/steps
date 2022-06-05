@@ -1,0 +1,13 @@
+git init
+
+git remote add origin https://github.com/aradhnapatel/rndemos
+
+git add -A
+
+git commit -m "Initial commit"
+
+git push -u -f origin master
+
+git config --global user.name “krshndbr”
+
+git config --global user.email “krshndbr@gmail.com"
