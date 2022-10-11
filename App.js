@@ -1,12 +1,9 @@
 import React from 'react';
-import CountryPickerDemo from './src/component/country-picker/CountryPickerDemo';
-// import AppContainer from './src/component/Nested-Navigation/AppContainer';
-// import Pagination from './src/component/pagination/Pagination';
-import PaginationClassComponent from './src/component/pagination/PaginationClassComponent';
-import PaginationDemo from './src/component/pagination/PaginationDemo';
+
+import ToDoListComponent from './src/component/to-do-list/ToDoListComponent';
 
 const App = () => {
-  return <PaginationDemo />;
+  return <ToDoListComponent />;
 };
 
 export default App;
