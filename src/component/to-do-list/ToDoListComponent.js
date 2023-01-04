@@ -15,12 +15,32 @@ const ToDoListComponent = () => {
   const [name, setName] = useState('');
   const [mainArr, setMainArr] = useState([]);
   const [ifEdit, setIfEdit] = useState(false);
+  const [editItem, setEditItem] = useState('');
+  const [editIndex, setEditIndex] = useState('');
+
+  // useEffect(() => {
+  //   console.log('========');
+  //   const array = [
+  //     {
+  //       name: 'ara',
+  //     },
+  //     {
+  //       name: 'sagar',
+  //     },
+  //     {
+  //       name: 'zini',
+  //     },
+  //   ];
+  //   const edit = (array[1].name = 'ssssssßß');
+  //   console.log('====edit====', edit, array);
+  // }, []);
 
   const handleAdd = () => {
     if (name.trim().length == 0) {
       alert('Please fill all fields first.');
     } else {
       const newList = mainArr.concat({name});
+
       setMainArr(newList);
       setName('');
     }
@@ -43,28 +63,43 @@ const ToDoListComponent = () => {
     ]);
   };
 
-  const handleEdit = id => {
+  const handleEdit = (id, item) => {
     setIfEdit(true);
+    setName(item);
+    setEditIndex(id);
+  };
 
-    const newTodos = [...mainArr];
-    const editItemIndex = mainArr.findIndex(index => index === id);
-    // newTodos[editItemIndex] = Object.assign(newTodos[index], { value: newText });
-    // console.log('===== editItemIndex', editItemIndex)
+  const handleEditData = () => {
+    const originalArr = mainArr;
+    originalArr[editIndex] = {name};
+    setMainArr(originalArr);
+    setIfEdit(false);
+    setName('');
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Add Data</Text>
       <View>
-        <TextInput
-          value={name}
-          placeholder="enter your name"
-          clearButtonMode={true}
-          style={styles.textInput}
-          onChangeText={nm => setName(nm)}
-        />
         {ifEdit ? (
-          <TouchableOpacity>
+          <TextInput
+            value={name}
+            placeholder="enter your name"
+            // clearButtonMode={true}
+            style={styles.textInput}
+            onChangeText={nm => setName(nm)}
+          />
+        ) : (
+          <TextInput
+            value={name}
+            placeholder="enter your name"
+            clearButtonMode={true}
+            style={styles.textInput}
+            onChangeText={nm => setName(nm)}
+          />
+        )}
+        {ifEdit ? (
+          <TouchableOpacity onPress={() => handleEditData()}>
             <Text style={styles.addContainer}>EDIT</Text>
           </TouchableOpacity>
         ) : (
@@ -82,9 +117,8 @@ const ToDoListComponent = () => {
               <View>
                 <Text style={styles.tit}>{item.name}</Text>
               </View>
-
               <View style={styles.row}>
-                <TouchableOpacity onPress={() => handleEdit(index)}>
+                <TouchableOpacity onPress={() => handleEdit(index, item.name)}>
                   <Text style={styles.editTitle}>EDIT</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => askingDeleteAlert(item.name)}>

@@ -24,6 +24,7 @@ const AxiosDemo = () => {
       <FlatList
         data={data}
         renderItem={({item}) => {
+          
           return (
             <View>
               <Text>{item.email}</Text>
