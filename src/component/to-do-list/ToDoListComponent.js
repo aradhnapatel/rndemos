@@ -15,25 +15,7 @@ const ToDoListComponent = () => {
   const [name, setName] = useState('');
   const [mainArr, setMainArr] = useState([]);
   const [ifEdit, setIfEdit] = useState(false);
-  const [editItem, setEditItem] = useState('');
   const [editIndex, setEditIndex] = useState('');
-
-  // useEffect(() => {
-  //   console.log('========');
-  //   const array = [
-  //     {
-  //       name: 'ara',
-  //     },
-  //     {
-  //       name: 'sagar',
-  //     },
-  //     {
-  //       name: 'zini',
-  //     },
-  //   ];
-  //   const edit = (array[1].name = 'ssssssßß');
-  //   console.log('====edit====', edit, array);
-  // }, []);
 
   const handleAdd = () => {
     if (name.trim().length == 0) {
@@ -85,7 +67,7 @@ const ToDoListComponent = () => {
           <TextInput
             value={name}
             placeholder="enter your name"
-            // clearButtonMode={true}
+            clearButtonMode={true}
             style={styles.textInput}
             onChangeText={nm => setName(nm)}
           />
