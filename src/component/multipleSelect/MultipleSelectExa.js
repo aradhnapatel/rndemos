@@ -1,128 +1,80 @@
-/* eslint-disable react-native/no-inline-styles */
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
-const data = [
-  {
-    color: 'pink',
-  },
-  {
-    color: 'red',
-  },
-  {
-    color: 'blue',
-  },
-  {
-    color: 'orange',
-  },
-  {
-    color: 'sky',
-  },
-  {
-    color: 'gray',
-  },
-  {
-    color: 'green',
-  },
-  {
-    color: 'yellow',
-  },
-  {
-    color: 'brown',
-  },
-  {
-    color: 'black',
-  },
-  {
-    color: 'gray',
-  },
-  {
-    color: 'green',
-  },
-  {
-    color: 'yellow',
-  },
-  {
-    color: 'brown',
-  },
-  {
-    color: 'black',
-  },
-  {
-    color: 'gray',
-  },
-  {
-    color: 'green',
-  },
-  {
-    color: 'yellow',
-  },
-  {
-    color: 'brown',
-  },
-  {
-    color: 'black',
-  },
-  {
-    color: 'gray',
-  },
-  {
-    color: 'green',
-  },
-  {
-    color: 'yellow',
-  },
-  {
-    color: 'brown',
-  },
-  {
-    color: 'black',
-  },
-  {
-    color: 'gray',
-  },
-  {
-    color: 'green',
-  },
-  {
-    color: 'yellow',
-  },
-  {
-    color: 'brown',
-  },
-  {
-    color: 'black',
-  },
-];
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-const MultipleSelectExa = () => {
-  const [selected, setSelected] = useState('');
+  const handleEmailChange = text => {
+    setEmail(text);
+  };
 
-  const handleSelect = item => {
-    // const selectedItems = [];
-    // const selectedItem = item;
-    // selectedItems.push(selectedItem, item);
-    // console.log('======== selectedItem', selectedItems);
-    // setSelected(selectedItem);
+  const handlePasswordChange = text => {
+    setPassword(text);
+  };
+
+  const validateEmail = () => {
+    if (!email) {
+      setEmailError('Please enter an email address');
+      return false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError('Please enter a valid email address');
+      return false;
+    } else {
+      setEmailError('');
+      return true;
+    }
+  };
+
+  const validatePassword = () => {
+    if (!password) {
+      setPasswordError('Please enter a password');
+      return false;
+    } else if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters long');
+      return false;
+    } else {
+      setPasswordError('');
+      return true;
+    }
+  };
+
+  const handleSubmit = () => {
+    if (validateEmail() && validatePassword()) {
+      console.log('Login successful');
+      // Add logic to handle successful login here
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>MultipleSelectExample</Text>
-      <FlatList
-        data={data}
-        numColumns={4}
-        contentContainerStyle={{alignSelf: 'center'}}
-        renderItem={({item}) => {
-          return (
-            <TouchableOpacity
-              style={styles.wrapper}
-              onPress={() => handleSelect(item)}>
-              <Text>{item.color}</Text>
-            </TouchableOpacity>
-          );
-        }}
+      <Text style={styles.title}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={handleEmailChange}
+        onBlur={validateEmail}
       />
+      <Text style={styles.error}>{emailError}</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry={true}
+        onChangeText={handlePasswordChange}
+        onBlur={validatePassword}
+      />
+      <Text style={styles.error}>{passwordError}</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -130,23 +82,41 @@ const MultipleSelectExa = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 40,
-    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   title: {
-    textAlign: 'center',
-    marginVertical: 20,
+    fontSize: 32,
     fontWeight: 'bold',
-    fontSize: 18,
+    marginBottom: 32,
   },
-  wrapper: {
-    padding: 10,
-    borderWidth: 0.3,
-    margin: 5,
-    borderRadius: 50,
-    paddingHorizontal: 20,
-    backgroundColor: 'pink',
+  input: {
+    width: '80%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingLeft: 10,
+    marginBottom: 16,
+  },
+  error: {
+    color: 'red',
+    marginBottom: 16,
+  },
+  button: {
+    width: '80%',
+    height: 40,
+    backgroundColor: '#0080ff',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
-export default MultipleSelectExa;
+export default Login;
